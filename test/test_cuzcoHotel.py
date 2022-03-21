@@ -23,7 +23,7 @@ la chaine globale 'à la main' ce qui évitera ces problèmes.
 class TestHotel(unittest.TestCase):
     def testAffichageChambres(self):
         self.assertEqual(
-        ''.join([c.afficher_chambre() for c in chambres]),
+        '\n'.join([c.afficher_chambre() for c in chambres]) + '\n',
         ''.join([c for c in chambres_test])
         )
 
@@ -52,6 +52,6 @@ class SpyAfficheur(PortAffichage):
     def afficher(self, chambres : list):
         self.dernier_output = ''
         for chambre in chambres:
-            self.dernier_output += chambre.afficher_chambre()
-        print(self.dernier_output, end='')
+            self.dernier_output += chambre.afficher_chambre() + '\n'
+        print(self.dernier_output)
         self.compteur_appel += 1

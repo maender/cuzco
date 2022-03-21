@@ -6,7 +6,7 @@ class Chambre:
         self.capacite = capacite
 
     def __repr__(self) -> str:
-        return '{}\t{}\t{}\t{}\n'.format(self.etage, self.numero, self.description, self.capacite)
+        return '{}\t{}\t{}\t{}'.format(self.etage, self.numero, self.description, self.capacite)
 
     def afficher_chambre(self):
         return self.__repr__()
