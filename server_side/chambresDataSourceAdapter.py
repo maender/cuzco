@@ -21,3 +21,9 @@ class ChambresDataSourceAdapter(PortChambresDataSource):
 
     def recupererChambres(self):
         return self.liste_chambres
+
+    def recupererChambreParSonNumero(self, numero_chambre):
+        for chambre in self.liste_chambres:
+            if numero_chambre == chambre.numero:
+                return chambre
+        return None
