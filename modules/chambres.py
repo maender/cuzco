@@ -1,5 +1,5 @@
 class Chambre:
-    def __init__(self,etage:int,numero:int,description:str,capacite:int):
+    def __init__(self, etage:int, numero:int, description:str, capacite:int):
         self.etage = etage
         self.numero = numero
         self.description =description
