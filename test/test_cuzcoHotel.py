@@ -2,7 +2,7 @@ import unittest
 from modules.hotel import Hotel
 from modules.chambres import Chambre
 from modules.ports import *
-from user_side.afficheurChambreAdapter import AfficheurChambres
+from user_side.afficheurAdapter import AfficheurAdapter
 from server_side.chambresDataSourceAdapter import ChambresDataSourceAdapter
 from server_side.reservationsDataSourceAdapter import ReservationDataSourceAdapter
 from datetime import date
@@ -44,7 +44,9 @@ class TestHotel(unittest.TestCase):
 
     def testAfficherChambresDisponibles(self):
         sp = SpyAfficheur()
-        cuzco = Hotel(sp, ChambresDataSourceAdapter(), ReservationDataSourceAdapter())
+        cuzco = Hotel(AfficheurAdapter(), ChambresDataSourceAdapter(), ReservationDataSourceAdapter())
+        cuzco.ajouterReservation(date(2022, 1, 1), date(2022, 1, 2), 101, 1)
+        cuzco.afficherReservations()
         cuzco.afficherChambresDisponibles(date(2022, 5, 3), date(2022, 5, 27), 10)
         # self.assertEqual(
         #     sp.dernier_output,
@@ -52,7 +54,7 @@ class TestHotel(unittest.TestCase):
         # )
         # self.assertEqual(
         #     sp.compteur_appel,
-        #     1
+        #     2
         # )
 
 if __name__ == '__main__':
@@ -64,9 +66,14 @@ class SpyAfficheur(PortAffichage):
         self.compteur_appel = 0
         self.dernier_output = ''
 
-    def afficher(self, chambres : list):
+    def afficherChambres(self, chambres : list):
         self.dernier_output = ''
         for chambre in chambres:
             self.dernier_output += chambre.afficher_chambre() + '\n'
+        print(self.dernier_output)
+        self.compteur_appel += 1
+
+    def afficherMessage(self, message):
+        self.dernier_output = message
         print(self.dernier_output)
         self.compteur_appel += 1
