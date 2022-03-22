@@ -1,13 +1,7 @@
 from modules.chambres import Chambre
 
 class PortAffichage:
-    def afficherChambres(self, chambres):
-        pass
-
-    def afficherMessage(self, message):
-        pass
-
-    def afficherReservations(self, reservations):
+    def afficher(self, chambres):
         pass
 
 class PortChambresDataSource:

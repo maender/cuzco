@@ -45,8 +45,6 @@ class TestHotel(unittest.TestCase):
     def testAfficherChambresDisponibles(self):
         sp = SpyAfficheur()
         cuzco = Hotel(AfficheurAdapter(), ChambresDataSourceAdapter(), ReservationDataSourceAdapter())
-        cuzco.ajouterReservation(date(2022, 1, 1), date(2022, 1, 2), 101, 1)
-        cuzco.afficherReservations()
         cuzco.afficherChambresDisponibles(date(2022, 5, 3), date(2022, 5, 27), 10)
         # self.assertEqual(
         #     sp.dernier_output,
