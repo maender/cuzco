@@ -11,7 +11,7 @@ class ReservationDataSourceAdapter(ReservationsDataSource):
     def recupererReservations(self):
         return self.liste_reservations
 
-    def ajouterReservation(self, date_debut, date_fin, numero_chambre, nombre_personnes):
+    def ajouterReservation(self, numero_chambre, date_debut, date_fin):
          self.liste_reservations.append(
-             Reservation(numero_chambre, date_debut, date_fin, nombre_personnes)
+             Reservation(numero_chambre, date_debut, date_fin)
         )
