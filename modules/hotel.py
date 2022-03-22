@@ -11,24 +11,35 @@ class Hotel:
         chambres = self.port_chambres_data_source.recupererChambres()
         self.port_affichage.afficher(chambres)
 
-    def recupererChambresDisponibles(self, chambres, date_debut, date_fin, nombre_personnes):
-        numero_chambres_non_disponibles = list()
-        reservations = self.port_reservation_data_source.recupererReservations()
-        for reservation in reservations:
-            if date_debut >= reservation.date_debut and date_debut <= reservation.date_fin:
+    def verifierDatesIndisponibles(self, reservation, date_debut, date_fin, numero_chambres_non_disponibles):
+        if ((date_debut >= reservation.date_debut and date_debut <= reservation.date_fin)
+            or (date_fin >= reservation.date_debut and date_fin <= reservation.date_fin)):
                 if reservation.numero_chambre not in numero_chambres_non_disponibles:
-                    numero_chambres_non_disponibles.append(reservation.numero_chambre)
-            elif date_fin >= reservation.date_debut and date_fin <= reservation.date_fin:
-                if reservation.numero_chambre not in numero_chambres_non_disponibles:
-                    numero_chambres_non_disponibles.append(reservation.numero_chambre)
-        chambres_disponibles = [chambre for chambre in chambres if chambre.numero not in numero_chambres_non_disponibles]
+                    return True
+        return False
+
+    def assezDePlacePourLeNombreDePersonnes(self, chambres_disponibles, nombre_personnes):
         if sum([chambre.capacite for chambre in chambres_disponibles]) >= nombre_personnes:
             return chambres_disponibles
         else:
             return None
+
+    def recupererChambresDisponibles(self, chambres, date_debut, date_fin, nombre_personnes):
+        numero_chambres_non_disponibles = list()
+        reservations = self.port_reservation_data_source.recupererReservations()
+
+        for reservation in reservations:
+            if self.verifierDatesIndisponibles(reservation, date_debut, date_fin, numero_chambres_non_disponibles):
+                numero_chambres_non_disponibles.append(reservation.numero_chambre)
+
+        chambres_disponibles = [chambre for chambre in chambres if chambre.numero not in numero_chambres_non_disponibles]
+        return self.assezDePlacePourLeNombreDePersonnes(chambres_disponibles, nombre_personnes)
 
 
     def afficherChambresDisponibles(self, date_debut, date_fin, nombre_personnes):
         chambres = self.port_chambres_data_source.recupererChambres()
         chambres_disponibles = self.recupererChambresDisponibles(chambres, date_debut, date_fin, nombre_personnes)
         self.port_affichage.afficher(chambres_disponibles)
+
+    def ajouterReservation(self, date_debut, date_fin, numero_chambre, nombre_personnes):
+        self.port_reservation_data_source.ajouterReservation(date_debut, date_fin, numero_chambre, nombre_personnes)
