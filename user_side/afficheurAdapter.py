@@ -1,6 +1,6 @@
 import re
 from modules.chambres import Chambre
-from modules.ports import PortAffichage, PortReservation
+from modules.ports import PortAffichage
 
 class AfficheurAdapter(PortAffichage):
     def afficherChambres(self, chambres):

@@ -1,8 +1,8 @@
 from modules.reservation import Reservation
-from modules.ports import ReservationsDataSource
+from modules.ports import PortReservationsDataSource
 from datetime import date, timedelta
 
-class ReservationDataSourceAdapter(ReservationsDataSource):
+class ReservationDataSourceAdapter(PortReservationsDataSource):
     def __init__(self) -> None:
         self.liste_reservations = [
             Reservation(101, date(2022, 5, 3), date(2022, 5, 10))

@@ -17,16 +17,9 @@ class PortChambresDataSource:
     def recupererChambreParSonNumero(self, numero_chambre):
         pass
 
-class ReservationsDataSource:
+class PortReservationsDataSource:
     def recupererReservations(self):
         pass
 
     def ajouterReservation(self, date_debut, date_fin, numero_chambre, nimbre_personnes):
-        pass
-
-class PortReservation:
-    def chercherChambresDisponibles(self, date_debut, date_fin, nombre_personnes):
-        pass
-
-    def reserverChambre(self, numero_chambre, date_debut, date_fin):
         pass
