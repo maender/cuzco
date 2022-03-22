@@ -18,6 +18,8 @@ JL le problème dans les tests venait du fait que les join() ne mettent pas
 le charactère après la derniere string de la liste et donc il n'y avait pas de \n à la fin
 J'ai corrigé ça mais ça rend le truc un peu chelou donc je pense que ce serait plus simple de faire
 la chaine globale 'à la main' ce qui évitera ces problèmes.
+
+D'accord merci Selim !
 '''
 
 class TestHotel(unittest.TestCase):
